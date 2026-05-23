@@ -7,16 +7,18 @@ public class Scene {
     private int id;
     private String title;
     private String content;
+    private Story story;
     private List<Choice> choices;
 
     public Scene() {
     }
 
-    public Scene(int id, String title, String content, List<Choice> choices) {
+    public Scene(int id, String title, String content, List<Choice> choices, Story story) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.choices = choices;
+        this.story=story;
     }
 
     public int getId() {
@@ -59,5 +61,13 @@ public class Scene {
                 ", content='" + content + '\'' +
                 ", choices=" + choices +
                 '}';
+    }
+
+    public Story getStory() {
+        return story;
+    }
+
+    public void setStory(Story story) {
+        this.story = story;
     }
 }

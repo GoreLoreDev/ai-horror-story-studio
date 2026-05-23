@@ -1,18 +1,24 @@
 package model;
+import java.util.List;
 
 public class Story {
 
     private int id;
     private String title;
     private String description;
+    private List<Scene> scenes;
+    private Scene startingScene;
+
 
     public Story() {
     }
 
-    public Story(int id, String title, String description) {
+    public Story(int id, String title, String description, List<Scene> scenes, Scene startingScene) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.scenes = scenes;
+        this.startingScene = startingScene;
     }
 
     public int getId() {
@@ -46,5 +52,21 @@ public class Story {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public List<Scene> getScenes() {
+        return scenes;
+    }
+
+    public void setScenes(List<Scene> scenes) {
+        this.scenes = scenes;
+    }
+
+    public Scene getStartingScene() {
+        return startingScene;
+    }
+
+    public void setStartingScene(Scene startingScene) {
+        this.startingScene = startingScene;
     }
 }
