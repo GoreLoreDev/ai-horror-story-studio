@@ -30,10 +30,10 @@ public class Main {
                 new MainWindow(engine);
 
 
-        window.displayScene(
-                engine.getCurrentScene().getTitle(),
-                engine.getCurrentScene().getContent()
+        window.renderScene(
+                engine.getCurrentScene()
         );
+
 
     }
 

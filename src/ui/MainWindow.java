@@ -6,6 +6,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Font;
 
 import model.Choice;
 import model.Scene;
@@ -19,6 +20,7 @@ public class MainWindow extends JFrame {
 
     private JTextArea storyArea;
     private JPanel choicePanel;
+    private JTextArea statusArea;
 
     public MainWindow(StoryEngine engine) {
 
@@ -42,6 +44,11 @@ public class MainWindow extends JFrame {
 
 
         storyArea = new JTextArea();
+        statusArea=new JTextArea();
+
+        statusArea.setEditable(false);
+
+        statusArea.setText("Fear Level: 0");
 
         storyArea.setText(
                 "Welcome to Horror Story Studio"
@@ -54,6 +61,14 @@ public class MainWindow extends JFrame {
 
 
         storyArea.setEditable(false);
+        storyArea.setLineWrap(true);
+        storyArea.setWrapStyleWord(true);
+
+        storyArea.setFont(
+                new Font("Serif",
+                        Font.PLAIN,
+                        20)
+        );
 
 
 
@@ -67,8 +82,13 @@ public class MainWindow extends JFrame {
         mainPanel.add(scrollPane,
                 BorderLayout.CENTER);
 
+        mainPanel.add(statusArea,
+                BorderLayout.NORTH);
+
         mainPanel.add(choicePanel,
                 BorderLayout.SOUTH);
+
+
 
         displayChoices();
 
@@ -94,6 +114,22 @@ public class MainWindow extends JFrame {
         Scene currentScene =
                 engine.getCurrentScene();
 
+        if (currentScene.getChoices().isEmpty()) {
+
+            JButton endButton =
+                    new JButton("Story Ended");
+
+            endButton.setEnabled(false);
+
+            choicePanel.add(endButton);
+
+            choicePanel.revalidate();
+
+            choicePanel.repaint();
+
+            return;
+        }
+
         for (Choice choice :
                 currentScene.getChoices()) {
 
@@ -107,10 +143,7 @@ public class MainWindow extends JFrame {
                 Scene nextScene =
                         engine.getCurrentScene();
 
-                displayScene(
-                        nextScene.getTitle(),
-                        nextScene.getContent()
-                );
+                renderScene(nextScene);
 
                 displayChoices();
 
@@ -124,5 +157,21 @@ public class MainWindow extends JFrame {
         choicePanel.revalidate();
 
         choicePanel.repaint();
+    }
+
+    public void renderScene(Scene scene){
+        displayScene(
+                scene.getTitle(),
+                scene.getContent()
+        );
+        updateStatus();
+        displayChoices();
+
+    }
+    public void updateStatus() {
+        statusArea.setText(
+                "Fear Level: " +
+                        engine.getPlayerState().getFearLevel()
+        );
     }
 }

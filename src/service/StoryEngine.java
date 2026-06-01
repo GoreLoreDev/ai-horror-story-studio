@@ -8,12 +8,22 @@ public class StoryEngine {
 
     private Scene currentScene;//the engine should know the currentScene and not just the playStory
 
+    private PlayerState playerState;
+
     public void chooseChoice(Choice choice){
-        currentScene=choice.getNextScene();
+        currentScene = choice.getNextScene();
+
+        playerState.setFearLevel(
+                playerState.getFearLevel()
+                        + currentScene.getFearEffect()
+        );
     }
 
     public void startStory(Story story){
         currentScene = story.getStartingScene();
+
+        playerState=new PlayerState();
+        playerState.setFearLevel(0);
 
     }
 
@@ -117,5 +127,9 @@ public class StoryEngine {
 
     public Scene getCurrentScene() {
         return currentScene;
+    }
+
+    public PlayerState getPlayerState(){
+        return playerState;
     }
 }
