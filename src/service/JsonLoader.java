@@ -49,6 +49,14 @@ public class JsonLoader {
 
                 Scene scene = new Scene();
 
+                scene.setChoices(
+                        new ArrayList<>()
+                );
+
+                scene.setSceneId(
+                        sceneData.getId()
+                );
+
                 scene.setTitle(
                         sceneData.getTitle()
                 );
@@ -72,6 +80,18 @@ public class JsonLoader {
             }
 
             story.setScenes(scenes);
+
+            for (Scene scene : scenes) {
+
+                if (scene.getSceneId().equals(
+                        storyData.getStartingScene()
+                )) {
+
+                    story.setStartingScene(scene);
+
+                    break;
+                }
+            } //JSON SAYS "starting scene": "intro" LOADER SEARCHES WHICH SCENE HAS SCENE ID "intro" AND THEN ASSIGNS IT
 
             System.out.println(story);
 

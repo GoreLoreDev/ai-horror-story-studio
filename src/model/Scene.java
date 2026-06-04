@@ -12,6 +12,8 @@ public class Scene {
     private List<Choice> choices;
     private int fearEffect;
 
+    private String sceneId;
+
 
     public Scene() {
     }
@@ -65,6 +67,7 @@ public class Scene {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", choices=" + choices +
+                "scene id" + sceneId+
                 '}';
     }
 
@@ -90,5 +93,13 @@ public class Scene {
 
     public void setFearEffect(int fearEffect) {
         this.fearEffect = fearEffect;
+    }
+
+    public String getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(String sceneId) {
+        this.sceneId = sceneId;
     }
 }

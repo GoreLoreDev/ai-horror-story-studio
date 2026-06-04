@@ -21,11 +21,16 @@ public class Main {
 
         loader.loadStory();
 
-        StoryFactory factory =
-                new StoryFactory();
+//        StoryFactory factory =
+//                new StoryFactory();
+//
+//        Story story =
+//                factory.createStory();
+
+
 
         Story story =
-                factory.createStory();
+                loader.loadStory();
 
         StoryEngine engine =
                 new StoryEngine();
