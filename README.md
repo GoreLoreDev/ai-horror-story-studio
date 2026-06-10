@@ -1,75 +1,141 @@
-# AI Horror Story Studio
+# Story Narrative Engine
 
-A Java-based interactive narrative engine for creating and playing branching horror stories using dynamic scene graphs, JSON-driven story loading, and a Swing GUI.
+A Java-based interactive narrative engine that dynamically loads and runs branching horror stories using JSON-driven scene graphs, validation systems, runtime traversal, and persistent save/load functionality.
 
 ---
 
-## Overview
+# Overview
 
-AI Horror Story Studio is a desktop narrative engine built in Java that allows branching horror stories to be loaded dynamically from external JSON files instead of hardcoded Java logic.
+Horror Narrative Engine is a desktop application built in Java that allows branching horror stories to be authored externally in JSON and executed dynamically at runtime.
 
 The project focuses on:
 
-* Object-oriented design
-* Narrative graph architecture
-* Dynamic story traversal
+* Object-Oriented Programming (OOP)
 * Runtime graph reconstruction
-* JSON parsing and data modeling
-* Event-driven GUI systems
-* Engine/UI separation
+* DFS graph traversal algorithms
+* Validation systems
+* Dynamic UI rendering
+* Persistent save/load systems
+* Separation of concerns
+* Data-driven architecture
 
-The application loads structured story data, reconstructs runtime scene graphs, and allows users to navigate interactive horror stories through a GUI.
+Instead of hardcoding stories directly into Java classes, stories are loaded from external JSON files and reconstructed into runtime scene graphs.
 
 ---
 
-## Features
+# Features
 
-### Narrative Engine
+## Narrative Engine
 
-* Branching scene traversal
-* Choice-based progression
-* Scene graph architecture
-* Dynamic runtime state management
+* Branching story traversal
+* Choice-driven gameplay
+* Multiple endings
+* Dynamic runtime scene transitions
 * Fear level gameplay system
-* Multiple scene types (NORMAL, ENDING, DEATH, etc.)
-
-### JSON-Driven Story Loading
-
-* External story storage using JSON
-* Dynamic scene reconstruction
-* Dynamic choice reconstruction
-* Runtime graph linking using scene IDs
-* Content-driven architecture
-
-### GUI System
-
-* Java Swing desktop interface
-* Dynamic scene rendering
-* Dynamic choice button generation
-* Event-driven interaction system
-* Live player status display
-* Horror-themed interface styling
-
-### Architecture Features
-
-* Layered project structure
-* Separation of engine and UI
-* Data transfer object (DTO) pattern
-* Two-pass graph reconstruction
-* Encapsulation and reusable rendering systems
+* Scene type support (NORMAL, ENDING, DEATH)
 
 ---
 
-## Technologies Used
+## JSON-Driven Story System
+
+* External JSON story loading
+* Runtime scene reconstruction
+* Dynamic choice linking
+* Scene graph generation
+* Content-driven architecture
+* Easily expandable stories without changing engine code
+
+---
+
+## Validation System
+
+* Broken scene reference detection
+* Unreachable scene detection
+* DFS-based graph traversal
+* Cycle detection
+* Structured validation reporting
+* Warning and error diagnostics
+
+Example validation output:
+
+```text
+Validation Report
+-----------------
+Broken Links: 0
+Unreachable Scenes: 1
+Cycles Detected: 1
+Status: INVALID
+```
+
+---
+
+## Save / Load System
+
+* Runtime persistence
+* Save current scene
+* Save player fear level
+* Restore game state from JSON
+* Dynamic runtime reconstruction after loading
+
+---
+
+## GUI System
+
+* Java Swing desktop UI
+* Dynamic button generation
+* Dynamic scene rendering
+* Runtime UI updates
+* Persistent control panel
+* Event-driven interaction system
+
+---
+
+# Technologies Used
 
 * Java
 * Java Swing
-* Gson (JSON parsing library)
+* Gson
 * IntelliJ IDEA
 
 ---
 
-## Project Structure
+# Project Architecture
+
+```text
+story.json
+    ↓
+JsonLoader
+    ↓
+Runtime Story Graph
+    ↓
+StoryValidator
+    ↓
+StoryEngine
+    ↓
+Swing GUI
+```
+
+---
+
+# Core Engineering Concepts
+
+This project implements several important software engineering concepts:
+
+* Graph reconstruction
+* DFS traversal
+* Recursive algorithms
+* Cycle detection
+* State management
+* Serialization / deserialization
+* Runtime persistence
+* Layered architecture
+* Separation of concerns
+* Dynamic UI rendering
+* Data-driven systems
+
+---
+
+# Project Structure
 
 ```text
 src/
@@ -83,72 +149,46 @@ src/
 │   ├── Choice.java
 │   ├── PlayerState.java
 │   ├── SceneType.java
+│   ├── SaveData.java
+│   ├── ValidationReport.java
 │   ├── StoryData.java
 │   ├── SceneData.java
 │   └── ChoiceData.java
 │
 ├── service/
 │   ├── StoryEngine.java
-│   └── JsonLoader.java
+│   ├── JsonLoader.java
+│   ├── StoryValidator.java
+│   └── SaveService.java
 │
 └── ui/
     └── MainWindow.java
 
 resources/
-└── story.json
+├── story.json
+└── save.json
 ```
 
 ---
 
-## How It Works
-
-### Story Loading Pipeline
-
-```text
-story.json
-    ↓
-JsonLoader
-    ↓
-StoryData / SceneData / ChoiceData
-    ↓
-Runtime Story Graph Reconstruction
-    ↓
-StoryEngine
-    ↓
-Swing GUI Rendering
-```
-
-### Runtime Graph Reconstruction
-
-The engine reconstructs branching narrative graphs dynamically from external JSON data.
-
-Scenes are first created and indexed using scene IDs.
-
-A second reconstruction pass dynamically connects choices to their target scenes.
-
-This allows:
-
-* branching traversal
-* scalable story expansion
-* external story authoring
-* reusable engine architecture
-
----
-
-## Example JSON Structure
+# Example JSON Scene
 
 ```json
 {
-  "id": "intro",
-  "title": "Abandoned Cabin",
-  "content": "You enter a cold abandoned cabin deep in the forest.",
+  "id": "basement",
+
+  "title": "Dark Basement",
+
+  "content": "The basement smells like rotten flesh.",
+
   "sceneType": "NORMAL",
-  "fearEffect": 10,
+
+  "fearEffect": 20,
 
   "choices": [
     {
-      "text": "Open the basement door",
-      "nextScene": "basement"
+      "text": "Walk deeper into the darkness",
+      "nextScene": "ritual_room"
     }
   ]
 }
@@ -156,53 +196,70 @@ This allows:
 
 ---
 
-## Current Status
+# Save File Example
 
-Implemented:
-
-* Dynamic story loading
-* GUI traversal
-* Runtime scene graph reconstruction
-* JSON-based branching choices
-* Fear level system
-* Swing interface
-* Engine/UI separation
-
-Planned:
-
-* Story validation system
-* Broken link detection
-* Unreachable scene analysis
-* Save/load system
-* Story editor
-* AI-assisted story generation
+```json
+{
+  "currentSceneId": "basement",
+  "fearLevel": 35
+}
+```
 
 ---
 
-## Learning Goals
+# Current Capabilities
+
+Implemented:
+
+* Dynamic branching narrative engine
+* Runtime graph reconstruction
+* JSON story loading
+* Validation subsystem
+* Cycle detection
+* Save/load persistence
+* Swing GUI
+* Dynamic UI generation
+* Fear level system
+
+---
+
+# Learning Goals
 
 This project was built to explore:
 
-* Java OOP design
-* Graph-based systems
-* Runtime architecture
-* JSON deserialization
-* Swing GUI development
-* Software engineering principles
+* Java software architecture
+* Runtime systems
+* Graph algorithms
+* GUI programming
+* Persistence systems
+* Validation systems
+* Recursive traversal algorithms
 * Data-driven application design
 
 ---
 
-## Screenshots
+# Future Improvements
 
-<img width="1176" height="879" alt="Screenshot 2026-06-05 224919" src="https://github.com/user-attachments/assets/37cdacb5-ff03-47c5-b010-de602a1177e7" />
-<img width="1172" height="874" alt="Screenshot 2026-06-05 224934" src="https://github.com/user-attachments/assets/550a0b98-affb-4d27-9396-001d3fb95fbb" />
-<img width="1168" height="880" alt="Screenshot 2026-06-05 224957" src="https://github.com/user-attachments/assets/62255fb6-992a-4f05-b0df-b058da9c55b5" />
+Potential future improvements:
 
-
+* Story editor GUI
+* Audio system
+* Procedural event generation
+* Better UI styling
+* Story analytics
+* Multiple save slots
+* Undo/rollback system
 
 ---
 
-## Author
+# Screenshots
+
+![Screenshot 2026-06-10 200024.png](..%2F..%2FOneDrive%2FPictures%2FScreenshots%2FScreenshot%202026-06-10%20200024.png)
+![Screenshot 2026-06-10 195953.png](..%2F..%2FOneDrive%2FPictures%2FScreenshots%2FScreenshot%202026-06-10%20195953.png)
+![Screenshot 2026-06-10 200006.png](..%2F..%2FOneDrive%2FPictures%2FScreenshots%2FScreenshot%202026-06-10%20200006.png)(Add screenshots here)
+
+---
+
+# Author
 
 Anuran Paul
